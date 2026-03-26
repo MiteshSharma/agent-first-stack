@@ -1,0 +1,62 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+.turbo/
+.next/
+
+# Environment
+.env
+.env.local
+.env.*.local
+.env.production
+
+# Worktrees — local only
+.worktrees/
+
+# Agent runtime state (written by hooks, not checked in)
+.agents/smoke-tests.sh
+.agents/verify-report.md
+.agents/last-session.md
+
+# Keep these in git
+!.agents/archive/
+!.agents/*/PLAN.md
+
+# IDE
+.vscode/
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+pids/
+*.pid
+*.seed
+
+# Test / Coverage
+coverage/
+*.lcov
+test-results/
+playwright-report/
+blob-report/
+
+# Docker
+docker-compose.override.yml
+
+# Misc
+*.tgz
+.cache/

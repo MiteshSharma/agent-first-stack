@@ -1,0 +1,17 @@
+.container {
+  background: #fff;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 16px;
+}
+
+.searchInput {
+  max-width: 320px;
+}

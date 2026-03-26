@@ -1,0 +1,20 @@
+{
+  "name": "Project Dev",
+  "dockerComposeFile": "docker-compose.dev.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "mounts": [
+    "source=claude-config,target=/root/.claude,type=volume",
+    "source=claude-json,target=/root/.claude.json,type=volume"
+  ],
+  "postStartCommand": "bash .devcontainer/init-firewall.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript-next"
+      ]
+    }
+  }
+}

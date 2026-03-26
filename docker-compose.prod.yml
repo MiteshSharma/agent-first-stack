@@ -1,0 +1,49 @@
+# ─── Production overlay ──────────────────────────────────────────────────────
+# Usage: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+#
+# - Pre-built images (multi-stage Dockerfile)
+# - Nginx serves static frontend + reverse proxies API
+# - TypeORM synchronize OFF — run migrations explicitly
+# - JWT_SECRET MUST be set via environment or .env file
+# ─────────────────────────────────────────────────────────────────────────────
+
+services:
+  postgres:
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: backend
+    ports:
+      - "${BACKEND_PORT:-3001}:3001"
+    environment:
+      NODE_ENV: production
+      PORT: "3001"
+      HOST: "0.0.0.0"
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/prod_data
+      DATABASE_SSL: "${DATABASE_SSL:-false}"
+      TYPEORM_SYNCHRONIZE: "false"
+      RUN_MIGRATIONS: "${RUN_MIGRATIONS:-true}"
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET must be set for production}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: frontend
+    ports:
+      - "${FRONTEND_PORT:-80}:80"
+    depends_on:
+      - backend
+    restart: unless-stopped

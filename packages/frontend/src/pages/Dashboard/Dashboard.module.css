@@ -1,0 +1,20 @@
+.container {
+  padding: 0;
+}
+
+.title {
+  margin-bottom: 24px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.detailsRow {
+  margin-top: 0;
+}

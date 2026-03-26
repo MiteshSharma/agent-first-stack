@@ -1,0 +1,14 @@
+FROM node:22-alpine
+
+RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
+
+# Install turbo globally for the dev container
+RUN npm install -g turbo
+
+WORKDIR /app
+
+# Dependencies are installed via volume mount + entrypoint
+# This avoids rebuilding the image when deps change
+EXPOSE 3001 5173
+
+CMD ["sh", "-c", "pnpm install && pnpm dev"]
