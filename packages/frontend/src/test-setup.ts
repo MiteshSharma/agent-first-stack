@@ -15,12 +15,11 @@ Object.defineProperty(window, 'matchMedia', {
   }),
 });
 
-// Ant Design uses getComputedStyle for scrollbar measurements
+// Ant Design uses getComputedStyle for scrollbar measurements.
+// jsdom logs "Not implemented" to stderr before throwing when pseudoElt is passed,
+// so we short-circuit before reaching jsdom's implementation for that case.
 const originalGetComputedStyle = window.getComputedStyle;
-window.getComputedStyle = (elt: Element, pseudoElt?: string | null) => {
-  try {
-    return originalGetComputedStyle(elt, pseudoElt);
-  } catch {
-    return {} as CSSStyleDeclaration;
-  }
+window.getComputedStyle = (elt: Element, pseudoElt?: string | null): CSSStyleDeclaration => {
+  if (pseudoElt !== undefined) return {} as CSSStyleDeclaration;
+  return originalGetComputedStyle(elt);
 };

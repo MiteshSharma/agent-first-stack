@@ -3,12 +3,12 @@ import { z } from 'zod';
 // ─── User Schemas ────────────────────────────────────────────────────────────
 
 export const CreateUserSchema = z.object({
-  email: z.string().email('Invalid email format'),
+  email: z.email('Invalid email format'),
   name: z.string().min(1, 'Name is required').max(255, 'Name too long'),
 });
 
 export const UpdateUserSchema = z.object({
-  email: z.string().email('Invalid email format').optional(),
+  email: z.email('Invalid email format').optional(),
   name: z.string().min(1, 'Name is required').max(255, 'Name too long').optional(),
 });
 
@@ -19,7 +19,7 @@ export const PaginationSchema = z.object({
 });
 
 export const IdParamSchema = z.object({
-  id: z.string().uuid('Invalid ID format'),
+  id: z.uuid('Invalid ID format'),
 });
 
 // ─── Health Schemas ──────────────────────────────────────────────────────────
@@ -38,8 +38,8 @@ export const HealthResponseSchema = z.object({
 });
 
 export const UserResponseSchema = z.object({
-  id: z.string().uuid(),
-  email: z.string().email(),
+  id: z.uuid(),
+  email: z.email(),
   name: z.string(),
   createdAt: z.string(),
   updatedAt: z.string(),

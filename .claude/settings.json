@@ -44,7 +44,15 @@
       "Bash(curl -s -X POST http://localhost:5174/api/users -H \"Content-Type: application/json\" -d '{\"\"\"\"name\"\"\"\":\"\"\"\"Dev User\"\"\"\",\"\"\"\"email\"\"\"\":\"\"\"\"dev@test.com\"\"\"\"}')",
       "Bash(curl -s http://localhost:5174/api/users)",
       "Bash(grep -r \"drizzle-orm\\\\|from.*src/db\" /Users/mitesh/Personal/node-app/packages/backend/src --include=*.ts -l)",
-      "Bash(pnpm db:generate)"
+      "Bash(pnpm db:generate)",
+      "Bash(find . -name tsconfig*.json -not -path */node_modules/*)",
+      "WebSearch",
+      "Bash(npm show:*)",
+      "WebFetch(domain:zod.dev)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:devblogs.microsoft.com)",
+      "WebFetch(domain:gist.github.com)",
+      "WebFetch(domain:www.npmjs.com)"
     ]
   }
 }
