@@ -3,7 +3,7 @@
 #
 # - Mounts source code for hot-reload (Vite HMR + tsx watch)
 # - No nginx — Vite dev server handles frontend + API proxy
-# - TypeORM synchronize auto-creates tables
+# - Drizzle migrations run automatically before dev server starts
 # ─────────────────────────────────────────────────────────────────────────────
 
 services:

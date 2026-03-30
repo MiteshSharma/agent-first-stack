@@ -11,4 +11,4 @@ WORKDIR /app
 # This avoids rebuilding the image when deps change
 EXPOSE 3001 5173
 
-CMD ["sh", "-c", "pnpm install && pnpm dev"]
+CMD ["sh", "-c", "pnpm install && pnpm --filter @agent-first-stack/backend db:migrate && pnpm dev"]

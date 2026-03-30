@@ -1,14 +1,13 @@
-import 'reflect-metadata';
 import { buildApp } from './app';
-import { AppDataSource } from './lib/data-source';
+import { pool } from './db';
 import { env } from './lib/env';
 
 async function main(): Promise<void> {
   const app = await buildApp();
 
   try {
-    // Initialize database connection
-    await AppDataSource.initialize();
+    // Verify database connectivity at startup
+    await pool.query('SELECT 1');
     app.log.info('Database connected');
 
     // Start server
@@ -27,9 +26,7 @@ async function main(): Promise<void> {
       app.log.info(`Received ${signal}, shutting down gracefully...`);
       try {
         await app.close();
-        if (AppDataSource.isInitialized) {
-          await AppDataSource.destroy();
-        }
+        await pool.end();
         app.log.info('Server shut down');
         process.exit(0);
       } catch (err) {

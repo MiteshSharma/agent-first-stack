@@ -25,7 +25,6 @@
         "REDIS_URL",
         "JWT_SECRET",
         "CORS_ORIGIN",
-        "TYPEORM_SYNCHRONIZE",
         "VITE_API_URL"
       ]
     },

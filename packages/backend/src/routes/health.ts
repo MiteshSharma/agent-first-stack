@@ -1,7 +1,8 @@
 import type { FastifyInstance } from 'fastify';
-import { AppDataSource } from '../lib/data-source';
+import { sql, count } from 'drizzle-orm';
+import { db } from '../db';
+import { users } from '../db/schema';
 import { getRedisClient, getCacheStats } from '../lib/cache';
-import { User } from '../entities/User';
 
 export async function healthRoutes(app: FastifyInstance): Promise<void> {
   app.get('/health', async (_request, reply) => {
@@ -10,7 +11,7 @@ export async function healthRoutes(app: FastifyInstance): Promise<void> {
     // Check database
     let dbStatus = 'connected';
     try {
-      await AppDataSource.query('SELECT 1');
+      await db.execute(sql`SELECT 1`);
     } catch (err) {
       dbStatus = `error: ${err instanceof Error ? err.message : 'unknown'}`;
     }
@@ -48,16 +49,14 @@ export async function healthRoutes(app: FastifyInstance): Promise<void> {
   });
 
   app.get('/metrics', async (_request, reply) => {
-    // Database entity counts
     const database: Record<string, number> = {};
     try {
-      const userCount = await AppDataSource.getRepository(User).count();
-      database.users = userCount;
+      const [{ total }] = await db.select({ total: count() }).from(users);
+      database.users = Number(total);
     } catch {
       database.users = 0;
     }
 
-    // Cache stats (zeros if Redis unavailable)
     const cache = await getCacheStats();
 
     return reply.send({

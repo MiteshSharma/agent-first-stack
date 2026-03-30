@@ -10,8 +10,8 @@ src/routes/users.ts → __tests__/routes/users.test.ts  (or .test.ts suffix)
 
 ## Patterns
 - Table-driven for multiple input/output combinations
-- Mock TypeORM: const mockRepo = { findOne: vi.fn(), save: vi.fn(), find: vi.fn() }
-  as unknown as Repository<Entity>
+- Mock repository: vi.mock('../../src/repositories/user.repository') with vi.fn() per method
+- Mock db connection: vi.mock('../../src/db', () => ({ db: {}, pool: { query: vi.fn(), end: vi.fn() } }))
 - Test service layer separately from route layer
 - One describe block per exported function
 - Run vitest before marking done — tests must pass

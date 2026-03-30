@@ -16,7 +16,7 @@ NOTE     file:line — description
 
 ## CRITICAL (must fix before verify)
 - Business logic in a route handler
-- TypeORM query in a service (use repository)
+- Drizzle query (db import) in a service (use repository)
 - fetch() call outside api/client.ts
 - Import from packages/backend in frontend code
 - type: any used anywhere

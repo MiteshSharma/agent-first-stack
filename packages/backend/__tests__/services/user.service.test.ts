@@ -15,9 +15,10 @@ vi.mock('../../src/repositories/user.repository', () => {
   return { UserRepository: vi.fn(() => mockRepo) };
 });
 
-// Mock data-source to avoid DB connection
-vi.mock('../../src/lib/data-source', () => ({
-  AppDataSource: { getRepository: vi.fn() },
+// Mock db to avoid DB connection
+vi.mock('../../src/db', () => ({
+  db: {},
+  pool: { query: vi.fn(), end: vi.fn() },
 }));
 
 // Mock cache to avoid Redis

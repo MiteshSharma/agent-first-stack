@@ -42,7 +42,9 @@
       "Bash(BACKEND_PORT=3002 FRONTEND_PORT=5174 docker compose -f docker-compose.yml -f docker-compose.dev.yml restart app)",
       "Bash(curl -s http://localhost:5174/)",
       "Bash(curl -s -X POST http://localhost:5174/api/users -H \"Content-Type: application/json\" -d '{\"\"\"\"name\"\"\"\":\"\"\"\"Dev User\"\"\"\",\"\"\"\"email\"\"\"\":\"\"\"\"dev@test.com\"\"\"\"}')",
-      "Bash(curl -s http://localhost:5174/api/users)"
+      "Bash(curl -s http://localhost:5174/api/users)",
+      "Bash(grep -r \"drizzle-orm\\\\|from.*src/db\" /Users/mitesh/Personal/node-app/packages/backend/src --include=*.ts -l)",
+      "Bash(pnpm db:generate)"
     ]
   }
 }

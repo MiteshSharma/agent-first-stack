@@ -3,8 +3,8 @@
 ## Architecture
 - Routes are thin: parse input → call service → return result
 - Business logic ONLY in services/
-- Database queries ONLY in repositories/ via TypeORM
-- NEVER use TypeORM EntityManager or getRepository() in services
+- Database queries ONLY in repositories/ via Drizzle
+- NEVER import db or schema directly in services — only call repository methods
 - All cache operations through lib/cache.ts — NEVER import ioredis directly
 
 ## Fastify Patterns
@@ -23,5 +23,4 @@
 - Run vitest before committing
 
 ## File Naming
-- Entities: PascalCase (User.ts)
-- Everything else: kebab-case (user.service.ts, user.repository.ts)
+- kebab-case for all files (user.service.ts, user.repository.ts, schema.ts)

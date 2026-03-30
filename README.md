@@ -20,7 +20,7 @@ This project solves that. Every rule is in a file the agent reads. Every workflo
 |-------|-----------|-----|
 | **Runtime** | Node.js 22 | LTS with native fetch, stable ES modules, largest package ecosystem |
 | **Backend** | Fastify 5 | 2-3x faster than Express, native TypeScript, built-in schema validation, Pino logging included |
-| **ORM** | TypeORM | Decorator-based entities, flexible QueryBuilder, migration system |
+| **ORM** | Drizzle ORM | Type-safe SQL-like API, plain SQL migrations, no decorator magic, zero reflection overhead |
 | **Database** | PostgreSQL 17 | Industry standard, JSONB, full-text search, rock-solid ACID |
 | **Cache** | Redis 7 (optional) | Response caching + rate limit state. App works without it — all Redis code has no-op fallbacks |
 | **Frontend** | React 19 + Vite 6 | Native ESM dev server, fast HMR, Rollup production builds |
@@ -38,7 +38,7 @@ This project solves that. Every rule is in a file the agent reads. Every workflo
 ```
 packages/
 ├── shared/     # Zod schemas + TypeScript interfaces (single source of truth)
-├── backend/    # Fastify API: routes → services → repositories → TypeORM
+├── backend/    # Fastify API: routes → services → repositories → Drizzle ORM
 └── frontend/   # React SPA: API client → React Query hooks → components
 ```
 
@@ -46,7 +46,7 @@ packages/
 - API contracts live ONLY in `packages/shared/src/types.ts`
 - All fetch calls live ONLY in `packages/frontend/src/api/client.ts`
 - Business logic ONLY in services — routes are thin (parse → call → respond)
-- DB queries ONLY in repositories — services never touch TypeORM directly
+- DB queries ONLY in repositories — services never import Drizzle directly
 - CSS Modules only — no inline styles, no styled-components
 - Redis is optional — every cache operation has a no-op fallback
 
@@ -95,7 +95,7 @@ pnpm docker:dev:down
 
 ### Option 3: Docker — Production
 
-Built images, nginx frontend, TypeORM migrations on startup:
+Built images, nginx frontend, Drizzle migrations on startup:
 
 ```bash
 # Build production images
@@ -310,7 +310,7 @@ node-app/
 ├── Dockerfile                   # Multi-stage production build
 └── packages/
     ├── shared/                  # Zod schemas + TypeScript types
-    ├── backend/                 # Fastify + TypeORM + PostgreSQL
+    ├── backend/                 # Fastify + Drizzle ORM + PostgreSQL
     └── frontend/                # React + Vite + Ant Design
 ```
 

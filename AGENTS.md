@@ -3,12 +3,12 @@
 Universal agent config — fallback for non-Claude agents.
 
 ## Available Agents
-1. **backend-implementer** — Implements Fastify routes, services, repositories, TypeORM entities
+1. **backend-implementer** — Implements Fastify routes, services, repositories, Drizzle schema
 2. **frontend-implementer** — Implements React components, hooks, and Zustand store slices
 3. **code-reviewer** — Read-only review with CRITICAL/WARNING/NOTE severity levels
 4. **test-writer** — Writes Vitest unit and integration tests
 5. **e2e-test-writer** — Writes Playwright E2E tests with real DOM inspection
-6. **db-migrator** — Handles TypeORM entity changes and migrations safely
+6. **db-migrator** — Handles Drizzle schema changes and migrations safely
 7. **log-analyzer** — Diagnoses runtime issues from logs, metrics, and verify reports
 
 ## Rules for All Agents

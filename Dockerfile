@@ -39,6 +39,8 @@ COPY --from=build /app/packages/shared/node_modules ./packages/shared/node_modul
 COPY --from=build /app/packages/backend/dist ./packages/backend/dist
 COPY --from=build /app/packages/backend/package.json ./packages/backend/
 COPY --from=build /app/packages/backend/node_modules ./packages/backend/node_modules
+# Drizzle migration files must be present at runtime for the entrypoint migration runner
+COPY --from=build /app/packages/backend/drizzle ./packages/backend/drizzle
 
 # Entrypoint handles migrations + server start
 COPY docker/entrypoint.sh ./entrypoint.sh

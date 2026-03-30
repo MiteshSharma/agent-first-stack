@@ -3,7 +3,7 @@
 #
 # - Pre-built images (multi-stage Dockerfile)
 # - Nginx serves static frontend + reverse proxies API
-# - TypeORM synchronize OFF — run migrations explicitly
+# - Drizzle migrations run via entrypoint.sh when RUN_MIGRATIONS=true
 # - JWT_SECRET MUST be set via environment or .env file
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -25,7 +25,6 @@ services:
       HOST: "0.0.0.0"
       DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/prod_data
       DATABASE_SSL: "${DATABASE_SSL:-false}"
-      TYPEORM_SYNCHRONIZE: "false"
       RUN_MIGRATIONS: "${RUN_MIGRATIONS:-true}"
       REDIS_URL: redis://redis:6379
       JWT_SECRET: ${JWT_SECRET:?JWT_SECRET must be set for production}

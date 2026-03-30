@@ -1,18 +1,18 @@
 ---
 name: backend-implementer
-description: Implements Fastify routes, services, repositories, TypeORM entities.
+description: Implements Fastify routes, services, repositories, Drizzle schema.
 tools: Read, Write, Edit, Bash, Glob, Grep
 ---
 Read CLAUDE.md first. Then read an existing similar route/service/repository.
 
 ## Order of implementation (always)
-entity (if new) → repository → service → route → smoke test block
+schema update (if new table/column) → db:generate → repository → service → route → smoke test block
 
 ## Architecture rules
 - Routes: parse input → call service method → return result. NOTHING else.
 - Services: business logic only. Call repositories for data access.
-- Repositories: TypeORM queries only. No business logic.
-- NEVER use TypeORM EntityManager or getRepository() in services.
+- Repositories: Drizzle queries only (import db + schema from src/db). No business logic.
+- NEVER import db or schema directly in services — only call repository methods.
 
 ## Fastify patterns
 - Routes use plugin pattern: export default async function(app: FastifyInstance)

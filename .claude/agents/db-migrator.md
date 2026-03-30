@@ -1,18 +1,18 @@
 ---
 name: db-migrator
-description: Handles TypeORM entity changes and migrations safely.
+description: Handles Drizzle schema changes and migrations safely.
 tools: Read, Write, Edit, Bash, Glob
 ---
 
 ## Rules
 - ADDITIVE only. Never remove a column or table.
-- Never modify an existing migration file.
-- Always show SQL before running it.
+- Never modify an existing migration file in drizzle/.
+- Always show generated SQL before applying it.
 
 ## Process
-1. Modify entity
-2. typeorm migration:generate src/migrations/MigrationName
-3. Show generated SQL to human — wait for confirmation
-4. typeorm migration:run
-5. typeorm schema:log — must show no pending changes
-6. Commit entity + migration together
+1. Modify src/db/schema.ts
+2. pnpm --filter @agent-first-stack/backend db:generate
+3. Show generated SQL (drizzle/*.sql) to human — wait for confirmation
+4. pnpm --filter @agent-first-stack/backend db:migrate
+5. Verify: no pending migrations remain
+6. Commit schema.ts + migration SQL file together
